@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Interactiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #1a1a1a;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: #222;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+        .info {
+            margin: 10px 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .fade-in {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🌟 Galería Animada 🌟</h2>
+        <img id="photo" src="https://via.placeholder.com/400/FF5733" alt="Imagen">
+        <p class="info" id="description">Atardecer vibrante con tonos cálidos.</p>
+        <div class="buttons">
+            <button onclick="prevImage()">⬅️ Anterior</button>
+            <button onclick="nextImage()">Siguiente ➡️</button>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            { src: "https://via.placeholder.com/400/FF5733", desc: "Atardecer vibrante con tonos cálidos." },
+            { src: "https://via.placeholder.com/400/33FF57", desc: "Paisaje verde y montañas." },
+            { src: "https://via.placeholder.com/400/3357FF", desc: "Cielo azul despejado con nubes." }
+        ];
+
+        let index = 0;
+        const photo = document.getElementById("photo");
+        const description = document.getElementById("description");
+
+        function updateImage() {
+            photo.classList.add("fade-out");
+            setTimeout(() => {
+                photo.src = images[index].src;
+                description.innerText = images[index].desc;
+                photo.classList.remove("fade-out");
+                photo.classList.add("fade-in");
+            }, 500);
+        }
+
+        function prevImage() {
+            index = (index - 1 + images.length) % images.length;
+            updateImage();
+        }
+
+        function nextImage() {
+            index = (index + 1) % images.length;
+            updateImage();
+        }
+    </script>
+
+</body>
+</html>
